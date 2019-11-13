@@ -8,18 +8,21 @@ import java.util.Scanner;
 public class MozbotRunner
 {
     // instance variables - replace the example below with your own
-    public static void main(String[] args)
+    public static void main()
 	{
 		Mozbot moz = new Mozbot();
-		
-		System.out.println (moz.getGreeting());
+		int a = moz.find(moz.tokenize(moz.filter("Aa  a,:lll bc")),"all");
+		System.out.println(a);
+		/*
+		//System.out.println (moz.getGreeting());
 		Scanner in = new Scanner (System.in);
 		String statement = in.nextLine();
 		
 		while (!statement.equals("Bye"))
 		{
-			System.out.println (moz.getResponse(statement));
+		//	System.out.println (moz.getResponse(statement));
 			statement = in.nextLine();
 		}
+		*/
 	}
 }
