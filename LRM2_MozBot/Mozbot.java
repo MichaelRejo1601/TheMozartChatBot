@@ -7,19 +7,22 @@ import java.io.*;
  * Write a description of class Mozbot here.
  *
  * @author Michael Rejo, Likhit Gudisay, Ritvik Penchala
- * @version (a version number or a date)
+ * @version 1.4
  */
 public class Mozbot
 {
     /** declaration of the brought */
     public Mozbot(){}
     public String filter (String p) {
-        /** filters extra stuff: non-letters, double spaces, trims ending and starting spaces, puts in lowercase */
+        /** filters extra stuff: non-letters, double spaces, trims ending and starting spaces, puts in lowercase @return String @param String
+ */
         String a = p.replaceAll("[^a-zA-Z ]", "").trim().replaceAll(" +", " ").toLowerCase();
         return a;
     }
     public ArrayList<String> tokenize (String p) {
-        /** Tokenizes words into a list */
+        /** Tokenizes words into a list @return ArrayList<String>
+@param String
+*/
         ArrayList<String> phrase = new ArrayList(Arrays.asList(p.split(" ")) ); ;
         return phrase;
     }
@@ -66,7 +69,9 @@ public class Mozbot
         return "I didn't understand that...";
     }
     public String giveAutomated(String t){
-      /** switchcase to check for type of randomized message: greeting, filler, conclusion, acknowledgement*/
+      /** switchcase to check for type of randomized message: greeting, filler, conclusion, acknowledgement @return String
+@param String
+*/
       switch(t){
         case "Greeting":
           return randomChoice(new String[]{"Hello there! How are you?","Hi, I'm Wolfgang! Is all going well?","A new student? Who are you?"});
@@ -80,23 +85,30 @@ public class Mozbot
       return "Oopsies";
     }
     public boolean find(ArrayList<String> phrase, String goal){
-      /** checks to see if the substring is within the message */
+      /** checks to see if the substring is within the message  @return Bool
+@param String, ArrayList<String>
+*/
       int psn = phrase.indexOf(goal.toLowerCase());
       if (psn >= 0){return true;}
       return false;
     }
     public String randomChoice(String[] choices){
-      /** picks a random number for the switchcase */
+      /** picks a random number for the switchcase @return String
+@param String[]
+ */
       Random r=new Random();
       int randomNumber=r.nextInt(choices.length);
       return choices[randomNumber];
     }
+    /** Reads Lines from the Storage.txt file. Odd numbered lines are the questions that 
+     * can be read and the even numbers are the reponses that are stored. This will return the even response if the question is found*/
     public String readLine(String goal) throws Exception
     {
         /*
         BufferedWriter writer = new BufferedWriter(new FileWriter("Storage.txt"));
         writer.write(newData);
         writer.close();
+        
         */
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader("Storage.txt"));
