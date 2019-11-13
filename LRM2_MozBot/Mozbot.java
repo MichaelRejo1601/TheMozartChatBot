@@ -1,5 +1,5 @@
-import java.util.Arrays;  
-import java.util.ArrayList; 
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 import java.io.*;
@@ -11,17 +11,15 @@ import java.io.*;
  */
 public class Mozbot
 {
-    
-    public Mozbot()
-    {
-                
-    }
+    /** declaration of the brought */
+    public Mozbot(){}
     public String filter (String p) {
-        //filters extra stuff: non-letters, double spaces, trims ending and starting spaces, puts in lowercase
+        /** filters extra stuff: non-letters, double spaces, trims ending and starting spaces, puts in lowercase */
         String a = p.replaceAll("[^a-zA-Z ]", "").trim().replaceAll(" +", " ").toLowerCase();
         return a;
     }
     public ArrayList<String> tokenize (String p) {
+        /** Tokenizes words into a list */
         ArrayList<String> phrase = new ArrayList(Arrays.asList(p.split(" ")) ); ;
         return phrase;
     }
@@ -67,36 +65,35 @@ public class Mozbot
         return "Oops Something Went Wrong";
     }
     public String giveAutomated(String t){
-        switch(t){
-            case "Greeting": 
-                return randomChoice(new String[]{"Hello there! How are you?","Hi, I'm Wolfgang! Is all going well?","A new student? Who are you?"});
-            case "Aknowledge":
-                return randomChoice(new String[]{"How intresting.","Oh, I see.","Delightful!"});
-            case "Conclusion":
-                return randomChoice(new String[]{"Bye!","It was nice chatting.","Thanks for visiting me!"});
-        
-        }
-        return "Oopsies";
-    } 
-    public boolean find(ArrayList<String> phrase, String goal)
-    {
-        int psn = phrase.indexOf(goal.toLowerCase());
-        if (psn >= 0)
-        {
-            return true;
-        }
-        return false;
+      /** switchcase to check for type of randomized message: greeting, filler, conclusion, acknowledgement*/
+      switch(t){
+        case "Greeting":
+          return randomChoice(new String[]{"Hello there! How are you?","Hi, I'm Wolfgang! Is all going well?","A new student? Who are you?"});
+        case "Aknowledge":
+          return randomChoice(new String[]{"How intresting.","Oh, I see.","Delightful!"});
+        case "Filler":
+          return randomChoice(new String[]{"How is our conversation going?","Do you have anymore questions?","What is something interesting about you?"})
+        case "Conclusion":
+          return randomChoice(new String[]{"Bye!","It was nice chatting.","Thanks for visiting me!"});
+      }
+      return "Oopsies";
     }
-    public String randomChoice(String[] choices)
-    {
-        Random r=new Random();
-        int randomNumber=r.nextInt(choices.length);
-        return choices[randomNumber];
+    public boolean find(ArrayList<String> phrase, String goal){
+      /** checks to see if the substring is within the message */
+      int psn = phrase.indexOf(goal.toLowerCase());
+      if (psn >= 0){return true;}
+      return false;
+    }
+    public String randomChoice(String[] choices){
+      /** picks a random number for the switchcase */
+      Random r=new Random();
+      int randomNumber=r.nextInt(choices.length);
+      return choices[randomNumber];
     }
     public String readLine(String goal) throws Exception
     {
         /*
-        BufferedWriter writer = new BufferedWriter(new FileWriter("Storage.txt")); 
+        BufferedWriter writer = new BufferedWriter(new FileWriter("Storage.txt"));
         writer.write(newData);
         writer.close();
         */
@@ -115,7 +112,7 @@ public class Mozbot
             ex.printStackTrace();
         }
         return null;
- 
+
     }
-    
+
 }
