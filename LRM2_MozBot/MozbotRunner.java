@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.util.Arrays;  
+import java.util.ArrayList; 
+import java.util.Random;
 /**
  * Write a description of class MozbotRunner here.
  *
@@ -11,8 +14,8 @@ public class MozbotRunner
     public static void main()
 	{
 		Mozbot moz = new Mozbot();
-		int a = moz.find(moz.tokenize(moz.filter("Aa  a,:lll bc")),"all");
-		System.out.println(a);
+		ArrayList<String> phrase = moz.tokenize(moz.filter("kek"));
+		System.out.println(moz.respond(phrase));
 		/*
 		//System.out.println (moz.getGreeting());
 		Scanner in = new Scanner (System.in);

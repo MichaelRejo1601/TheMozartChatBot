@@ -25,25 +25,30 @@ public class Mozbot
         return phrase;
     }
     public String respond (ArrayList<String> p) {
-        return "";
+        if (find(p, "bc") || find(p, "all")){System.out.println("return statement");}
+	else if (find(p, "bc") || find(p, "all")){System.out.println("return statement");}
+	return "Oops Something Went Wrong";
     }
     public String giveAutomated(String t){
         switch(t){
             case "Greeting": 
-                return randomChoice(new String[]{"Greeting","Greeting","Greeting"});
+                return randomChoice(new String[]{"Hello there! How are you?","Hi, I'm Wolfgang! Is all going well?","A new student? Who are you?"});
             case "Aknowledge":
-                return randomChoice(new String[]{"Aknowledge","Aknowledge","Aknowledge"});
+                return randomChoice(new String[]{"How intresting.","Oh, I see.","Delightful!"});
             case "Conclusion":
-                return randomChoice(new String[]{"Conclusion","Conclusion","Conclusion"});
+                return randomChoice(new String[]{"Bye!","It was nice chatting.","Thanks for visiting me!"});
         
         }
         return "Oopsies";
     } 
-    public int find(ArrayList<String> phrase, String goal)
+    public boolean find(ArrayList<String> phrase, String goal)
     {
         int psn = phrase.indexOf(goal.toLowerCase());
-        
-        return psn;
+        if (psn >= 0)
+        {
+            return true;
+        }
+        return false;
     }
     public String randomChoice(String[] choices)
     {
