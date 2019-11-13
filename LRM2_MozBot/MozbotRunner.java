@@ -14,18 +14,25 @@ public class MozbotRunner
     public static void main()
 	{
 		Mozbot moz = new Mozbot();
-		ArrayList<String> phrase = moz.tokenize(moz.filter("kek"));
-		System.out.println(moz.respond(phrase));
-		/*
-		//System.out.println (moz.getGreeting());
 		Scanner in = new Scanner (System.in);
+				
+		System.out.println("---------------");
+		System.out.println(moz.giveAutomated("Greeting"));
 		String statement = in.nextLine();
-		
-		while (!statement.equals("Bye"))
-		{
-		//	System.out.println (moz.getResponse(statement));
+		System.out.println(moz.giveAutomated("Aknowledge"));
+		System.out.println("What would you like to know about me?");
+	
+		while (true)
+		{		
 			statement = in.nextLine();
+			ArrayList<String> phrase = moz.tokenize(moz.filter(statement));
+			if (moz.respond(phrase).equals("end"))
+			{
+			    break;
+			}
+			System.out.println(moz.respond(phrase));
+			
 		}
-		*/
+		System.out.println(moz.giveAutomated("Conclusion"));
 	}
 }
