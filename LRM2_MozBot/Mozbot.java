@@ -23,7 +23,8 @@ public class Mozbot
         ArrayList<String> phrase = new ArrayList(Arrays.asList(p.split(" ")) ); ;
         return phrase;
     }
-    public String respond (ArrayList<String> p) {
+    public String respond (ArrayList<String> p, String a) throws Exception{
+        String b = readLine(filter(a));
         if (find(p, "bye") || find(p, "goodbye")){return "end";}
         else if (find(p, "hi") || find(p, "hello")){return giveAutomated("Greeting");}
         else if (find(p, "who") && find(p, "you")){return "My name is Wolfgang Amadeus Mozart, I am a musician.";}
@@ -61,8 +62,8 @@ public class Mozbot
         else if (find(p, "yes") || find(p, "no")){return "Huh. Expand please.";}
         else if (find(p, "frick") || find(p, "crap")){return "I’m not sure I appreciate that. Perhaps we could keep things a little more holy here? (not that I am exactly innocent either)";}
         else if (find(p, "im")){return giveAutomated("Acknowledge");}
-        else {}
-        return "Oops Something Went Wrong";
+        else if (b != null) {return b;}
+        return "I didn't understand that...";
     }
     public String giveAutomated(String t){
       /** switchcase to check for type of randomized message: greeting, filler, conclusion, acknowledgement*/
@@ -72,7 +73,7 @@ public class Mozbot
         case "Aknowledge":
           return randomChoice(new String[]{"How intresting.","Oh, I see.","Delightful!"});
         case "Filler":
-          return randomChoice(new String[]{"How is our conversation going?","Do you have anymore questions?","What is something interesting about you?"})
+          return randomChoice(new String[]{"How is our conversation going?","Do you have anymore questions?","What is something interesting about you?"});
         case "Conclusion":
           return randomChoice(new String[]{"Bye!","It was nice chatting.","Thanks for visiting me!"});
       }
@@ -101,9 +102,10 @@ public class Mozbot
             BufferedReader bufferreader = new BufferedReader(new FileReader("Storage.txt"));
             String line;
             while ((line = bufferreader.readLine()) != null) {
-                if (line.equals(goal)){
+                if (filter(line).toLowerCase().equals(goal.toLowerCase())){
                     return bufferreader.readLine();
                 }
+                bufferreader.readLine();
             }
 
         } catch (FileNotFoundException ex) {

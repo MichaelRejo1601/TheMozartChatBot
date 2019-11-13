@@ -11,7 +11,7 @@ import java.util.Random;
 public class MozbotRunner
 {
     // instance variables - replace the example below with your own
-    public static void main()
+    public static void main() throws Exception
 	{
 		Mozbot moz = new Mozbot();
 		Scanner in = new Scanner (System.in);
@@ -25,12 +25,13 @@ public class MozbotRunner
 		while (true)
 		{		
 			statement = in.nextLine();
-			ArrayList<String> phrase = moz.tokenize(moz.filter(statement));
-			if (moz.respond(phrase).equals("end"))
+			String filtered = moz.filter(statement);
+			ArrayList<String> phrase = moz.tokenize(filtered);
+			if (moz.respond(phrase, filtered).equals("end"))
 			{
 			    break;
 			}
-			System.out.println(moz.respond(phrase));
+			System.out.println(moz.respond(phrase, filtered));
 			
 		}
 		System.out.println(moz.giveAutomated("Conclusion"));
