@@ -65,8 +65,9 @@ public class Mozbot
         else if (find(p, "yes") || find(p, "no")){return "Huh. Expand please.";}
         else if (find(p, "frick") || find(p, "crap")){return "I’m not sure I appreciate that. Perhaps we could keep things a little more holy here? (not that I am exactly innocent either)";}
         else if (find(p, "im")){return giveAutomated("Acknowledge");}
+        else if (find(p, "something")){return "ask";}
         else if (b != null) {return b;}
-        return "I didn't understand that...";
+        return "...";
     }
     public String giveAutomated(String t){
       /** switchcase to check for type of randomized message: greeting, filler, conclusion, acknowledgement @return String
@@ -92,6 +93,7 @@ public class Mozbot
       if (psn >= 0){return true;}
       return false;
     }
+    
     public String randomChoice(String[] choices){
       /** picks a random number for the switchcase @return String
 @param String[]
@@ -99,6 +101,17 @@ public class Mozbot
       Random r=new Random();
       int randomNumber=r.nextInt(choices.length);
       return choices[randomNumber];
+    }
+    public String randomQuestion(ArrayList<String> a){
+        return a.get(randomEvenInt(a));
+    }
+    public int randomEvenInt(ArrayList<String> a){
+        Random r = new Random();
+        int randomNumber = r.nextInt(a.size()-1);
+        while (randomNumber%2 == 1){
+           randomNumber = r.nextInt(a.size()-1); 
+        }
+        return randomNumber;
     }
     /** Reads Lines from the Storage.txt file. Odd numbered lines are the questions that 
      * can be read and the even numbers are the reponses that are stored. This will return the even response if the question is found*/
@@ -128,5 +141,61 @@ public class Mozbot
         return null;
 
     }
-
-}
+    
+    public ArrayList<String> retrieve() throws Exception{
+        ArrayList<String> lines = new ArrayList<String>();   
+        try {
+            BufferedReader bufferreader = new BufferedReader(new FileReader("Storage.txt"));
+            String line;
+            while ((line = bufferreader.readLine()) != null) {
+                lines.add(line);
+            }
+            bufferreader.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return lines;
+    }
+    public void writein(ArrayList<String> a, String newline) throws Exception{
+        try { 
+            FileWriter writer = new FileWriter("Storage.txt"); 
+                for(String str: a) {
+                    writer.write(str + System.lineSeparator());
+                }
+            writer.write(newline);
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void replace(int index, String newline) throws Exception{
+        ArrayList<String> a = retrieve();
+        a.set(index + 1, newline);
+        try { 
+            FileWriter writer = new FileWriter("Storage.txt"); 
+                for(String str: a) {
+                    writer.write(str + System.lineSeparator());
+                }
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+    }
+    //tester
+    public String doboth() throws Exception{
+        try{return new Integer(randomEvenInt(retrieve())).toString();}
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return "Oops";
+    }
+    }
+    
