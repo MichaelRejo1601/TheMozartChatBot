@@ -1,4 +1,4 @@
-;import java.util.Scanner;
+import java.util.Scanner;
 import java.util.Arrays;  
 import java.util.ArrayList; 
 import java.util.Random;
@@ -53,7 +53,7 @@ public class MozbotRunner
                 else if (moz.respond(phrase, filtered).equals("ask"))
                 {
                     temp = moz.randomQuestion(moz.retrieve());
-                    System.out.println(moz.randomQuestion(moz.retrieve()));
+                    System.out.println(temp);
                     storing = true;
                 }
                 else {System.out.println(moz.respond(phrase, filtered));}
